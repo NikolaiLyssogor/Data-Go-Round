@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .header {
+      padding: 5px;
+      text-align: center;
+      background: #C0C0C0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+      color: grey;
+    }
+
+    .navbar a {
+      float: left;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .logo {
+      display: inline-block;
+      vertical-align: top;
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+      margin-top: 15px;
+    }
+
+    .navbar>a {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
+      height: 80px;
+      line-height: 80px;
+    }
+
+    .navbar a:hover,
+    .dropdown:hover .dropbtn {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <!-- <img class="logo" src="logo.png"> -->
+    <a href="home-page.html">Home</a>
+    <a href="login.html">Sign Out</a>
+    <a href="survey_creation_page.html">Create a Survey</a>
+    <a href="survey_creation_page.html">My Surveys</a>
+    <p>Survey Credits: X </p>
+  </div>
+  <p id="clicked"></p>
+  <script>
+    function myFunction() {
+      document.getElementById("clicked").style.color = "red";
+    }
+  </script>
+
+  </button>
+
+  <div class="header">
+    <h1>Survey Taking Page</h1>
+  </div>
+  <br>
+
+  <form action="/take/<%- survey_id %>/answers" method="POST">
+    <% questions.forEach((question) => {
+      var htmlStr = "<div class='card w-50'>"
+      htmlStr += "<div class='card-header'><h3 class='card-title'>" + question.question + "</h3></div>"
+      htmlStr += "<div class='card-body'>"
+      switch(question.type) {
+        case "tf":
+          htmlStr+= "<input type='radio' name='q" + question.question_id + "' value='True'><label for='True'>True</label><br>"
+          htmlStr+= "<input type='radio' name='q" + question.question_id + "' value='False'><label for='False'>False</label><br>"
+          break
+        case "radio":
+          question.choices.forEach((choice,idx) => {
+            htmlStr+= "<input type='radio' name='q" + question.question_id + "' value='c" + idx + "'><label for='c" + idx + "'>" + choice + "</label><br>"
+          })
+          break
+        case "checkbox":
+          question.choices.forEach((choice,idx) => {
+            htmlStr+= "<input type='checkbox' id = 'q" + question.question_id + "' name='q" + question.question_id + "' value='c" + idx + "'><label for='c" + idx + "'>" + choice + "</label><br>"
+          })
+      }
+      htmlStr += "</div></div>"%>
+      <%- htmlStr %>
+    <% }) %>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<%- include("./partials/header") %>
+<%- include("./partials/nav") %>
+
+    <!-- title, description, and add question forms -->
+    <div style="display: flex; flex-direction: row; justify-content: flex-end; align-items: flex-start; margin-top: 2%;">
+      <div class="jumbotron" style="width: 45%; margin-left: 25%; margin-right: auto; height: 30%;">
+        <form>
+          <div class="form-group" style="padding-bottom: 10px;">
+  	       <input type="text" class="form-control form-control-lg" id="surveyTitle" placeholder="Untitled Survey">
+          </div>
+          <div class="form-group">
+  	        <textarea class="form-control" id="surveyDescription" rows="3" placeholder="Describe your survey..."></textarea>
+          </div>
+          <!-- Button triggers modal -->
+          <button type="button" class="btn btn-primary" onclick="showModal()" style="margin-right: 80%;">
+            New Question
+          </button>
+        </form>
+      </div>
+      <!-- publish survey -->
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#publishAlertModal" style="margin-right: 300px;">Publish Survey</button>
+    </div>
+
+    <!-- confirm publish modal -->
+    <div class="modal fade" id="publishAlertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Please review your survey.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            You will not be able to make changes after publishing.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" onclick="fillHeaderData(); submitData();">Publish Survey</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New question modal -->
+    <div class="modal fade" id="newQuestionModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">New question</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Question entry -->
+            <form class="needs-validation" novalidate>
+              <div class="form-group">
+                <label for="surveyTitle">Enter your question here</label>
+                <input type="text" class="form-control" id="questionTitle" placeholder="What is the meaning of life?">
+              </div>
+              <div class="form-group">
+                <label for="questionTypeSelect">Choose what type of question this is</label>
+                <select class="form-control" id="questionTypeSelect" onchange="viewAnswerBuilder(questionTypeSelect)">
+                  <option value="default">Choose...</option>
+                  <option value="radio">Multiple Choice</option>
+                  <option value="checkbox">Checkbox</option>
+                  <option value="tf">True/False</option>
+                </select>
+              </div>
+              <!-- Multiple choice answer add prompt -->
+              <!-- note: this code is for both checkboxes and multiple choice questions -->
+              <div id="MCAnswersRow">
+                <div class="form-group" style="display: none;" id="MCAnswers">
+                  <input type="text" class="form-control" placeholder="Enter your answer here..." id="answer1">
+                  <!-- <img src="../resources/img/trashicon.png" style="margin-top: 1%;" width="30"> -->
+                </div>
+              </div>
+              <button type="button" onclick="addAnswer()" class="btn btn-outline-primary" id="AddAnswerButton" style="margin-top: 2%; display: none;">+</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearModal()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="validateForm()" id="saveQuestionButton">Save question</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question card div -->
+    <div style="width: 45%; margin-left: 25%; margin-right: auto; margin-bottom: 2%;" id="cards">
+    <!-- Content gets added to it with js function -->
+    </div>
+		<script src="../js/create-survey_scripts.js"></script>
+<%- include("./partials/footer") %>

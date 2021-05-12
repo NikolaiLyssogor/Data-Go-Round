@@ -1,0 +1,28 @@
+<%- include("./partials/header")%>
+<%- include("./partials/nav")%>
+
+                <!-- Page content -->
+        <div class="main" style="margin-left: 5%; margin-right: 5%; padding-top:2%" >
+          <% if (surveys) {            
+            <!-- for all surveys -->
+            surveys.forEach(function(item){ 
+              var survey_item = '';
+              var survey_item2 = '';
+              survey_item +='<div class="card border-primary mb-3">';
+              survey_item +='<div class="card-header"><h3 class="card-title" style=" width:50%; float:left; margin-block-end: 0px; margin: 0px;  font-size: 1.5rem;">'+ item.title +'</h3><p class="card-title" style="float: right; padding-right:2%;">Earn: '+ item.credits +' credit(s)</p></div>';
+              survey_item +='<div class="card card-body">';
+              survey_item +='<p class="card-text" style=" margin-block-end: 0px; margin: 0px;">'+ item.description +'</p>'%>
+              <%
+              survey_item2 +='</div></div>';%>
+              <%- survey_item %><button type="button" class="btn btn-success " style="margin-top: 2%;width: max-content;"><a style="color: azure;" href="/take/<%= item.survey_id %>"> Take Survey</a></button><%- survey_item2 %>
+              <% 
+            });%><%
+          }%>
+<!--             
+            <div class="card border-info mb-3">
+              <div class="card-header"><h3 class="card-title">Survey data</h3></div>
+              <div class="card-body"><%= JSON.stringify(surveys) %></div>
+            </div> -->
+        </div>
+        
+        <%- include("./partials/footer")%>

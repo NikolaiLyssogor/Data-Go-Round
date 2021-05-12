@@ -1,0 +1,53 @@
+<%- include("./partials/header")%>
+<link rel="stylesheet" type="text/css" href="css/login.css">
+    <div class="container">
+
+        <!-- Centered card on page -->
+        <div class="w-50 card" id="loginCard">
+            <div class="card-header">
+                <div style="width:13%;float:left">
+                    <img src="./css/favicon2.svg">
+                </div>
+                <div style="width:75%;float:right">
+                    <h1 class="card-title">Register for DGR</h1>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!-- Login form content -->
+                <form action="/register" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="signUpName" name="name" class="form-control" placeholder="Full Name"
+                        required autofocus>
+                    </div>
+                    <div style="color:red">
+                        <p><% if(errors.email) { %>This email is already taken.<% } %></p>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="signUpEmail" name="email" class="form-control" placeholder="Email"
+                        required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="su_pw" name="pw1" class="form-control" placeholder="Enter a Password"
+                        required>
+                    </div>
+                    <div style="color:red">
+                        <p><% if(errors.pw) { %>Passwords must match.<% } %></p>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="su_pw_check" name="pw2" class="form-control"
+                            placeholder="Retype Password" required>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" onclick="checkSignUp()">Create Account</button>
+                    </div>
+                </form>
+                <hr>
+                <!-- Login link -->
+                <p>Already have an account? <a href="/login">Log in here.</a></p>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+<%- include("./partials/footer")%>
